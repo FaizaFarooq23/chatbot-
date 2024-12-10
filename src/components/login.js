@@ -25,8 +25,28 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+  
+    const adminCredentials = {
+      email: "admin@gmail.com",
+      password: "admin",
+    };
+  
+    if (
+      formData.email === adminCredentials.email &&
+      formData.password === adminCredentials.password
+    ) {
+      router.push({
+        pathname: "/dashboard",
+        query: { isAdmin: true },
+      });
+    } else {
+      router.push({
+        pathname: "/dashboard",
+        query: { isAdmin: false },
+      });
+    }
   };
+  
 
   return (
     <div className="flex justify-center items-center h-full min-h-screen bg-gray-100 gap-x-10 p-4">
@@ -35,14 +55,10 @@ export default function Login() {
           onSubmit={handleSubmit}
           className="flex flex-col gap-y-8 bg-opacity-85 bg-white px-6 pt-6 pb-10 shadow-[0_2px_16px_-3px_rgba(173, 216, 230, 0.3))]"
         >
-          {/* Header */}
           <div className="text-center">
-            <h3 className="text-gray-800 text-3xl font-extrabold">
-              تسجيل الدخول
-            </h3>
+            <h3 className="text-gray-800 text-3xl font-extrabold">تسجيل الدخول</h3>
           </div>
           <div className="flex flex-col gap-y-4">
-            {/* Email Input */}
             <div className="relative flex flex-row-reverse items-center">
               <input
                 name="email"
@@ -55,8 +71,6 @@ export default function Login() {
               />
               <HiOutlineMail className="w-5 h-5 absolute left-2 text-gray-600" />
             </div>
-
-            {/* Password Input */}
             <div className="relative flex flex-row-reverse items-center">
               <input
                 name="password"
@@ -80,8 +94,6 @@ export default function Login() {
               </button>
             </div>
           </div>
-
-          {/* Remember Me and Forgot Password */}
           <div className="flex flex-wrap items-center justify-end gap-4 text-right">
             <div className="flex flex-row-reverse items-center">
               <input
@@ -100,12 +112,9 @@ export default function Login() {
               </label>
             </div>
           </div>
-
-          {/* Submit Button and Register Link */}
           <div className="space-y-8">
             <button
-              onClick={() => router.push("/dashboard")}
-              type="button"
+              type="submit"
               className="w-full py-2.5 px-4 text-sm font-semibold tracking-wider rounded-full text-white bg-gray-800 focus:outline-none transform transition duration-300 scale-90 hover:scale-100"
             >
               تسجيل الدخول
